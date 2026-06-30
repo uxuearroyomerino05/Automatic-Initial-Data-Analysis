@@ -1,0 +1,76 @@
+DATASETS DE PRUEBA - Automatic-Initial-Data-Analysis
+=====================================================
+
+CLASIFICACION BINARIA
+----------------------
+1. Titanic (Kaggle / seaborn)
+   - ~891 filas
+   - Verificar: limpieza con nulos naturales (Age, Cabin), mezcla de
+     variables categoricas y numericas, imputacion univariable.
+
+2. Pima Indians Diabetes (UCI / Kaggle)
+   - ~768 filas, todo numerico
+   - Verificar: imputacion, desbalance de clases -> SMOTEENN/ADASYN/SMOTETomek,
+     metricas Accuracy/Balanced Accuracy, Precision, Recall, F1, MCC.
+
+CLASIFICACION MULTICLASE
+--------------------------
+3. Iris (sklearn)
+   - 150 filas, sin nulos
+   - Verificar: que el pipeline funciona correctamente sin nulos antes de
+     probar con datos sucios. Base para XGBoost, RandomForest, HistGB, SVM OvO.
+
+4. Wine (UCI / sklearn)
+   - 178 filas, numerico, 3 clases
+   - Verificar: modelos multiclase, metricas F1-Macro, MCC, Recall/Precision Macro.
+
+REGRESION
+----------
+5. Tips (seaborn)
+   - 244 filas, mezcla categoricas/numericas, sin nulos
+   - Verificar: encoding (one-hot, target/frequency), variable objetivo continua,
+     modelos LinearRegression, RANSAC, Theil-Sen, Huber.
+
+6. Auto MPG (UCI)
+   - ~398 filas
+   - Verificar: nulos reales en "horsepower", imputacion univariable,
+     metricas R2, RMSE, MAPE.
+
+CLUSTERING
+-----------
+7. Mall Customers (Kaggle, "Mall_Customers.csv")
+   - 200 filas, sin variable objetivo
+   - Verificar: Hopkins statistic, K-Means (Elbow), DBSCAN, BIRCH, Gaussian Mixture (BIC),
+     metricas Silhouette, Calinski-Harabasz, Davies-Bouldin.
+
+8. Wholesale Customers (UCI)
+   - ~440 filas, todo numerico
+   - Verificar: clustering con mas variables numericas, comparacion de metodos.
+
+IMPUTACION MULTIVARIABLE (nulos > 5%)
+----------------------------------------
+9. Horse Colic (UCI)
+   - ~300 filas, 27 variables, varias columnas con 20-30% nulos naturales
+   - Verificar: cambio de imputacion univariable a multivariable segun
+     porcentaje de nulos, clasificacion binaria o multiclase segun target elegido.
+
+10. Communities and Crime (UCI)
+    - ~2000 filas, 128 variables, columnas con hasta 80%+ de nulos
+    - Verificar: limite del pipeline ante variables con demasiados nulos
+      (decidir si se descartan), imputacion multivariable a gran escala.
+
+DATASET MAS GRANDE (volumen general)
+---------------------------------------
+11. Adult / Census Income (UCI)
+    - ~48,000 filas, clasificacion binaria, nulos representados como "?"
+    - Verificar: rendimiento y tiempos del pipeline con mayor volumen de datos,
+      limpieza de valores nulos no estandar ("?"), variables categoricas con
+      muchas categorias (target/frequency encoding).
+
+NOTA
+-----
+Para forzar manualmente el caso de imputacion multivariable en datasets
+limpios, se pueden eliminar valores artificialmente con pandas:
+  df.loc[df.sample(frac=0.1).index, 'columna'] = np.nan
+Esto permite controlar el porcentaje exacto de nulos para probar el cambio
+entre imputacion univariable (<5%) y multivariable (>=5%).
