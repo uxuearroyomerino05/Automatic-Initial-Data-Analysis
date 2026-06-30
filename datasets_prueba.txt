@@ -66,11 +66,3 @@ DATASET MAS GRANDE (volumen general)
     - Verificar: rendimiento y tiempos del pipeline con mayor volumen de datos,
       limpieza de valores nulos no estandar ("?"), variables categoricas con
       muchas categorias (target/frequency encoding).
-
-NOTA
------
-Para forzar manualmente el caso de imputacion multivariable en datasets
-limpios, se pueden eliminar valores artificialmente con pandas:
-  df.loc[df.sample(frac=0.1).index, 'columna'] = np.nan
-Esto permite controlar el porcentaje exacto de nulos para probar el cambio
-entre imputacion univariable (<5%) y multivariable (>=5%).
